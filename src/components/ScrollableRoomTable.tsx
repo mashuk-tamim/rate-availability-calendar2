@@ -192,7 +192,7 @@ export default function ScrollableRoomTable({
 									<div
 										className={clsx(
 											"h-11 text-xs md:text-sm lg:text-base md:h-10 border-b border-r border-slate-400 dark:border-slate-600 text-center flex items-center justify-center",
-											isDisabled && "bg-red-500"
+											isDisabled && "bg-red-500 text-white"
 										)}
 									>
 										{inventory?.available ?? 0}
@@ -200,7 +200,7 @@ export default function ScrollableRoomTable({
 									<div
 										className={clsx(
 											"h-11 text-xs md:text-sm lg:text-base md:h-10 border-b border-r border-slate-400 dark:border-slate-600 text-center flex items-center justify-center",
-											isDisabled && "bg-red-500"
+											isDisabled && "bg-red-500 text-white"
 										)}
 									>
 										{inventory?.booked ?? 0}
@@ -212,7 +212,7 @@ export default function ScrollableRoomTable({
 												<div
 													className={clsx(
 														"h-16 border-b border-r border-slate-400 dark:border-slate-600 text-center flex items-center justify-center text-xs md:text-sm lg:text-base",
-														isDisabled && "bg-red-500"
+														isDisabled && "bg-red-500 text-white"
 													)}
 												>
 													{rateInfo?.rate ?? "-"}
@@ -220,7 +220,7 @@ export default function ScrollableRoomTable({
 												<div
 													className={clsx(
 														"h-11 text-xs md:text-sm lg:text-base md:h-10 border-b border-r border-slate-400 dark:border-slate-600 text-center flex items-center justify-center",
-														isDisabled && "bg-red-500"
+														isDisabled && "bg-red-500 text-white"
 													)}
 												>
 													{rateInfo?.min_length_of_stay ?? "-"}
@@ -228,7 +228,7 @@ export default function ScrollableRoomTable({
 												<div
 													className={clsx(
 														"h-11 text-xs md:text-sm lg:text-base md:h-10 border-b border-r border-slate-400 dark:border-slate-600 text-center flex items-center justify-center",
-														isDisabled && "bg-red-500"
+														isDisabled && "bg-red-500 text-white"
 													)}
 												>
 													{rateInfo?.reservation_deadline ?? "-"}

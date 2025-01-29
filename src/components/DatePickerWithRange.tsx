@@ -44,14 +44,14 @@ export function DatePickerWithRange({
   }, [date])
 
 	return (
-		<div className={cn("grid gap-2 shadow-md", className)}>
+		<div className={cn("", className)}>
 			<Popover>
 				<PopoverTrigger asChild>
 					<Button
 						id="date"
 						variant={"outline"}
 						className={cn(
-							"w-[300px] justify-start text-left font-normal",
+							"w-[300px] justify-start text-left font-normal border border-slate-400 dark:border-slate-600",
 							!date && "text-muted-foreground"
 						)}
 					>

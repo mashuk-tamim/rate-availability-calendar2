@@ -6,7 +6,7 @@ import ScrollableCalendar from "./ScrollableCalendar";
 import { debounce } from "lodash";
 import { RoomCalendarResponse } from "@/types/room-calendar";
 import ScrollableRoomTable from "./ScrollableRoomTable";
-import { formatDate } from "@/lib/helper";
+import { formatDate } from "@/utils/helper";
 import useRoomRateAvailabilityCalendar from "@/hooks/useRoomRateAvailabilityCalender";
 
 interface RoomCalendarProps {
@@ -28,12 +28,12 @@ export default function RoomCalendarContainer({
 		sourceId: "",
 	});
 
-	// Add this to track if we got empty data in the last fetch
+	// to track if we got empty data in the last fetch
 	const [reachedEnd, setReachedEnd] = useState(false);
 
 	const lastTableRef = useRef<HTMLDivElement>(null);
 
-	// Add infinite query
+	// infinite query
 	const { data, fetchNextPage, hasNextPage, isFetchingNextPage } =
 		useRoomRateAvailabilityCalendar({
 			property_id: 1,
@@ -42,23 +42,15 @@ export default function RoomCalendarContainer({
 			initialData: roomCalendar,
 		});
 
-	// Use Mantine's useIntersection hook
+	// intersection observer
 	const { ref: observerRef, entry } = useIntersection({
 		root: lastTableRef.current,
 		threshold: 0.5,
 	});
 
-	// Combine initial data with infinite query data
+	// combine initial data with infinite query data
 	const allRoomCategories =
 		data?.pages.flatMap((page) => page.data.room_categories) ?? [];
-
-	// Create debounced scroll handler for horizontal scroll sync
-	const handleHorizontalScroll = debounce(
-		(newOffset: number, sourceId: string) => {
-			setScrollOffset({ offset: newOffset, sourceId });
-		},
-		50
-	);
 
 	// Handle intersection
 	useEffect(() => {
@@ -79,11 +71,20 @@ export default function RoomCalendarContainer({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [entry?.isIntersecting]);
 
+	// Create debounced scroll handler for horizontal scroll sync
+	const handleHorizontalScroll = debounce(
+		(newOffset: number, sourceId: string) => {
+			setScrollOffset({ offset: newOffset, sourceId });
+		},
+		25
+	);
+
 	// Cleanup debounce on unmount
 	useEffect(() => {
 		return () => {
 			handleHorizontalScroll.cancel();
 		};
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	return (
@@ -114,8 +115,8 @@ export default function RoomCalendarContainer({
 							key={roomCategory.id}
 							className="border border-slate-400 dark:border-slate-600 rounded-sm overflow-hidden"
 						>
-							<div className="p-2 md:p-3 border-b border-slate-400 dark:border-slate-600 bg-slate-200 dark:bg-slate-800">
-								<h3 className="font-semibold text-lg tracking-wider">
+							<div className="border-b border-slate-400 dark:border-slate-600 bg-slate-200 dark:bg-slate-800 flex">
+								<h3 className="p-3 md:p-4 flex items-center font-semibold text-lg tracking-wider min-w-[100px] md:min-w-[200px] lg:min-w-[300px]">
 									{roomCategory.name}
 								</h3>
 							</div>

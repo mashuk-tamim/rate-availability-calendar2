@@ -1,6 +1,6 @@
 "use client";
 
-import Fetch from "@/lib/Fetch";
+import Fetch from "@/utils/Fetch";
 import { RoomCalendarResponse } from "@/types/room-calendar";
 import { useInfiniteQuery } from "@tanstack/react-query";
 

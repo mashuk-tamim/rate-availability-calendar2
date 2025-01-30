@@ -1,8 +1,9 @@
 import React from "react";
 import { DatePickerWithRange } from "@/components/DatePickerWithRange";
 import RoomCalendarContainer from "@/components/RoomCalenderContainer";
-import Fetch from "@/lib/Fetch";
+import Fetch from "@/utils/Fetch";
 import { Metadata } from "next";
+import { format, addDays } from "date-fns";
 
 export const metadata: Metadata = {
 	title: "Room Calendar",
@@ -24,8 +25,10 @@ export default async function Home({
 }: {
 	searchParams: Promise<{ start_date: string; end_date: string }>;
 }) {
-	const { start_date = "2025-01-29", end_date = "2025-01-30" } =
-		await searchParams;
+	const {
+		start_date = format(new Date(), "yyyy-MM-dd"),
+		end_date = format(addDays(new Date(), 90), "yyyy-MM-dd"),
+	} = await searchParams;
 
   const propertyId = 1;
   

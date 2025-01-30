@@ -19,10 +19,9 @@ export default function ScrollableCalendar({
 	scrollOffset,
 }: RoomCalendarProps) {
 	const [dates, setDates] = useState<Date[]>([]);
-  const parentRef = useRef<HTMLDivElement>(null);
-  const isScrolling = useRef(false);
-  const columnWidth = useColumnWidth();
-
+	const parentRef = useRef<HTMLDivElement>(null);
+	const isScrolling = useRef(false);
+	const columnWidth = useColumnWidth();
 
 	// Setup virtualizer
 	const virtualizer = useVirtualizer({
@@ -49,9 +48,9 @@ export default function ScrollableCalendar({
 		if (!isScrolling.current) {
 			isScrolling.current = true;
 			onScroll?.(e.currentTarget.scrollLeft);
-			setTimeout(() => {
+			requestAnimationFrame(() => {
 				isScrolling.current = false;
-			}, 0);
+			});
 		}
 	};
 
@@ -95,11 +94,11 @@ export default function ScrollableCalendar({
 	);
 }
 
-const DateCell = ({date}: {date: Date}) => {
+const DateCell = ({ date }: { date: Date }) => {
 	return (
 		<div className="text-center min-w-small md:min-w-medium lg:min-w-large h-full block border-[0.5px] border-slate-400 dark:border-slate-600 py-2">
 			<p className="text-sm font-semibold">{format(date, "MMM")}</p>
 			<p className="text-lg font-bold">{format(date, "dd")}</p>
 		</div>
 	);
-}
+};

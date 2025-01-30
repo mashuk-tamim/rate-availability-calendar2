@@ -1,4 +1,3 @@
-// import { IFetchError } from "@/types";
 import { RoomCalendarResponse } from "@/types/room-calendar";
 
 interface Props {
@@ -48,30 +47,6 @@ const Fetch = async <TResponseData = RoomCalendarResponse>({
     if (process.env.NODE_ENV === "development") {
       console.error("Fetch Error Only Dev", error);
     }
-
-    // if (!window.navigator.onLine) {
-    //   enqueueSnackbar("You're currently offline.", { variant: "error" });
-    // } else {
-    //   switch ((error as IFetchError).statusCode) {
-    //     case 400:
-    //       throw error;
-    //     case 404:
-    //       enqueueSnackbar((error as IFetchError).reason, {
-    //         variant: "error",
-    //       });
-    //       break;
-    //     case 500:
-    //       enqueueSnackbar((error as IFetchError).message, {
-    //         variant: "error",
-    //       });
-    //       throw error;
-    //     default:
-    //       enqueueSnackbar((error as IFetchError).message, {
-    //         variant: "error",
-    //       });
-    //       throw error;
-    //   }
-    // }
 
     throw error; // Always throw the error for consistent behavior
   }

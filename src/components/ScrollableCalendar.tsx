@@ -3,14 +3,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import { format, parseISO, eachDayOfInterval } from "date-fns";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import { COLUMN_WIDTH_LARGE, COLUMN_WIDTH_MEDIUM, COLUMN_WIDTH_SMALL } from "@/app/constants/column-width";
+import { useColumnWidth } from "@/hooks/useColumnWidth";
 
 interface RoomCalendarProps {
 	start_date: string;
 	end_date: string;
 	onScroll?: (scrollOffset: number) => void;
 	scrollOffset?: number;
-	// id: string; // To identify which calendar triggered the scroll
 }
 
 export default function ScrollableCalendar({
@@ -18,31 +17,12 @@ export default function ScrollableCalendar({
 	end_date,
 	onScroll,
 	scrollOffset,
-	// id,
 }: RoomCalendarProps) {
 	const [dates, setDates] = useState<Date[]>([]);
   const parentRef = useRef<HTMLDivElement>(null);
-  const [columnWidth, setColumnWidth] = useState(COLUMN_WIDTH_LARGE);
-	const isScrolling = useRef(false);
+  const isScrolling = useRef(false);
+  const columnWidth = useColumnWidth();
 
-	// Add resize handler
-	useEffect(() => {
-		const handleResize = () => {
-			if (window.innerWidth <= 425) {
-				// sm breakpoint
-				setColumnWidth(COLUMN_WIDTH_SMALL);
-			} else if (window.innerWidth <= 768) {
-				// md breakpoint
-				setColumnWidth(COLUMN_WIDTH_MEDIUM);
-			} else {
-				setColumnWidth(COLUMN_WIDTH_LARGE);
-			}
-		};
-		handleResize();
-		window.addEventListener("resize", handleResize);
-		// Cleanup
-		return () => window.removeEventListener("resize", handleResize);
-	}, []);
 
 	// Setup virtualizer
 	const virtualizer = useVirtualizer({

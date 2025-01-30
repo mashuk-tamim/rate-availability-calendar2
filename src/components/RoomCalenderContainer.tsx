@@ -7,7 +7,7 @@ import { debounce } from "lodash";
 import { RoomCalendarResponse } from "@/types/room-calendar";
 import ScrollableRoomTable from "./ScrollableRoomTable";
 import { formatDate } from "@/lib/helper";
-import useRoomRateAvailabilityCalendar from "@/app/hooks/useRoomRateAvailabilityCalender";
+import useRoomRateAvailabilityCalendar from "@/hooks/useRoomRateAvailabilityCalender";
 
 interface RoomCalendarProps {
 	start_date: string;
@@ -46,7 +46,6 @@ export default function RoomCalendarContainer({
 	const { ref: observerRef, entry } = useIntersection({
 		root: lastTableRef.current,
 		threshold: 0.5,
-		// rootMargin: '100px',
 	});
 
 	// Combine initial data with infinite query data

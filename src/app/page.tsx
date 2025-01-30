@@ -1,7 +1,23 @@
+import React from "react";
 import { DatePickerWithRange } from "@/components/DatePickerWithRange";
 import RoomCalendarContainer from "@/components/RoomCalenderContainer";
 import Fetch from "@/lib/Fetch";
-import * as React from "react";
+import { Metadata } from "next";
+
+export const metadata: Metadata = {
+	title: "Room Calendar",
+	description: "View and manage room availability calendar",
+	openGraph: {
+		title: "Room Calendar",
+		description: "View and manage room availability calendar",
+		type: "website",
+	},
+	twitter: {
+		card: "summary_large_image",
+		title: "Room Calendar",
+		description: "View and manage room availability calendar",
+	},
+};
 
 export default async function Home({
 	searchParams,

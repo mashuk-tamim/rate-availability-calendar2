@@ -3,10 +3,10 @@
 import React, { useEffect, useRef, useState } from "react";
 import { format, parseISO, eachDayOfInterval } from "date-fns";
 import { useVirtualizer } from "@tanstack/react-virtual";
-import { COLUMN_WIDTH_LARGE, COLUMN_WIDTH_MEDIUM, COLUMN_WIDTH_SMALL } from "@/app/constants/column-width";
 import { RoomCategory } from "@/types/room-calendar";
 import clsx from "clsx";
 import { UserRound } from "lucide-react";
+import { useColumnWidth } from "@/hooks/useColumnWidth";
 
 interface ScrollableRoomTableProps {
 	roomCategory: RoomCategory;
@@ -27,28 +27,9 @@ export default function ScrollableRoomTable({
 }: ScrollableRoomTableProps) {
 	const [dates, setDates] = useState<Date[]>([]);
   const parentRef = useRef<HTMLDivElement>(null);
-  const [columnWidth, setColumnWidth] = useState(COLUMN_WIDTH_LARGE);
   const isScrolling = useRef(false);
-  
-  // Add resize handler
-	useEffect(() => {
-		const handleResize = () => {
-			if (window.innerWidth <= 425) {
-				// sm breakpoint
-				setColumnWidth(COLUMN_WIDTH_SMALL);
-			} else if (window.innerWidth <= 768) {
-				// md breakpoint
-				setColumnWidth(COLUMN_WIDTH_MEDIUM);
-			} else {
-				setColumnWidth(COLUMN_WIDTH_LARGE);
-			}
-		};
+  const columnWidth = useColumnWidth();
 
-    handleResize();
-		window.addEventListener("resize", handleResize);
-		// Cleanup
-		return () => window.removeEventListener("resize", handleResize);
-	}, []);
 
 	// Setup virtualizer
 	const virtualizer = useVirtualizer({

@@ -1,4 +1,4 @@
-import { COLUMN_WIDTH_LARGE, COLUMN_WIDTH_MEDIUM, COLUMN_WIDTH_SMALL } from "./src/app/constants/column-width";
+import { COLUMN_WIDTH_LARGE, COLUMN_WIDTH_MEDIUM, COLUMN_WIDTH_SMALL } from "./src/constants/column-width";
 import type { Config } from "tailwindcss";
 import tailwindAnimate from "tailwindcss-animate";
 import tailwindScrollbar from "tailwind-scrollbar";

@@ -9,7 +9,6 @@ import { useTheme } from "next-themes";
 export default function Navbar() {
   const [logoSrc, setLogoSrc] = useState("/grit_logo_black.svg");
   const { theme, systemTheme } = useTheme();
-  console.log("theme", theme, systemTheme);
   
   useEffect(() => {
     // For explicit theme selection

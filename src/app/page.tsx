@@ -27,7 +27,11 @@ export default async function Home({
 	const { start_date = "2025-01-29", end_date = "2025-01-30" } =
 		await searchParams;
 
-	const propertyId = 1;
+  const propertyId = 1;
+  
+  if (!process.env.NEXT_PUBLIC_BACKEND_URL) {
+		throw new Error("NEXT_PUBLIC_BACKEND_URL is not defined");
+	}
 
 	// Only fetch first page with cursor=0
 	const roomCalendar = await Fetch({

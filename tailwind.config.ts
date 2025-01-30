@@ -54,6 +54,9 @@ export default {
 					"5": "hsl(var(--chart-5))",
 				},
 			},
+			fontFamily: {
+				geist: ["var(--font-geist-sans)", "sans-serif"],
+			},
 			borderRadius: {
 				lg: "var(--radius)",
 				md: "calc(var(--radius) - 2px)",
@@ -62,7 +65,7 @@ export default {
 			minWidth: {
 				large: `${COLUMN_WIDTH_LARGE}px`,
 				medium: `${COLUMN_WIDTH_MEDIUM}px`,
-				small: `${COLUMN_WIDTH_SMALL}px`, 
+				small: `${COLUMN_WIDTH_SMALL}px`,
 			},
 		},
 	},

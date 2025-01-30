@@ -28,20 +28,21 @@ export function DatePickerWithRange({
   const router = useRouter();
   const searchParams = useSearchParams();
   
-  const pushDateToUrl = (date: DateRange | undefined) => {
+  const pushDateToURL = (date: DateRange | undefined) => {
     const params = new URLSearchParams(searchParams.toString());
     if (date?.from) {
-      params.set("from", format(date.from, "yyyy-MM-dd"));
+      params.set("start_date", format(date.from, "yyyy-MM-dd"));
     }
     if (date?.to) {
-      params.set("to", format(date.to, "yyyy-MM-dd"));
+      params.set("end_date", format(date.to, "yyyy-MM-dd"));
     }
     router.push(`?${params.toString()}`);
   }
 
   useEffect(() => {
-    pushDateToUrl(date);
-  }, [date])
+		pushDateToURL(date);
+		// eslint-disable-next-line react-hooks/exhaustive-deps
+	}, [date])
 
 	return (
 		<div className={cn("", className)}>

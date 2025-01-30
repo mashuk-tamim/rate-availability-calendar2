@@ -6,17 +6,17 @@ import * as React from "react";
 export default async function Home({
 	searchParams,
 }: {
-	searchParams: Promise<{ from: string; to: string }>;
+	searchParams: Promise<{ start_date: string; end_date: string }>;
 }) {
-	const { from: start_date = "2025-01-29", to: end_date = "2025-01-30" } =
+	const { start_date = "2025-01-29", end_date = "2025-01-30" } =
 		await searchParams;
 
 	const propertyId = 1;
-	// Fetch room rate availability calendar data
 
+	// Only fetch first page with cursor=0
 	const roomCalendar = await Fetch({
 		method: "GET",
-		url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/property/${propertyId}/rate-calendar/assessment?start_date=${start_date}&end_date=${end_date}`,
+		url: `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/property/${propertyId}/rate-calendar/assessment?start_date=${start_date}&end_date=${end_date}&cursor=0`,
 	});
 
 	return (

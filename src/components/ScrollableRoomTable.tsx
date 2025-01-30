@@ -6,7 +6,7 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 import { COLUMN_WIDTH_LARGE, COLUMN_WIDTH_MEDIUM, COLUMN_WIDTH_SMALL } from "@/app/constants/column-width";
 import { RoomCategory } from "@/types/room-calendar";
 import clsx from "clsx";
-import { User } from "lucide-react";
+import { UserRound } from "lucide-react";
 
 interface ScrollableRoomTableProps {
 	roomCategory: RoomCategory;
@@ -120,28 +120,32 @@ export default function ScrollableRoomTable({
 			{/* Fixed left column */}
 			<div className="w-[100px] md:min-w-[200px] lg:min-w-[300px]">
 				<div className="grid">
-					<div className="h-11 text-xs md:text-sm lg:text-base md:h-10 border-b border-r border-slate-400 dark:border-slate-600 px-1 md:px-4 flex items-center">
+					<div className="h-11 text-xs md:text-sm lg:text-base font-medium md:h-10 border-b border-r border-slate-400 dark:border-slate-600 px-1 md:px-4 flex items-center">
 						Room status
 					</div>
-					<div className="h-11 text-xs md:text-sm lg:text-base md:h-10 border-b border-r border-slate-400 dark:border-slate-600 px-1 md:px-4 flex items-center">
+					<div className="h-11 text-xs md:text-sm lg:text-base font-medium md:h-10 border-b border-r border-slate-400 dark:border-slate-600 px-1 md:px-4 flex items-center">
 						Rooms to sell
 					</div>
-					<div className="h-11 text-xs md:text-sm lg:text-base md:h-10 border-b border-r border-slate-400 dark:border-slate-600 px-1 md:px-4 flex items-center">
+					<div className="h-11 text-xs md:text-sm lg:text-base font-medium md:h-10 border-b border-r border-slate-400 dark:border-slate-600 px-1 md:px-4 flex items-center">
 						Net booked
 					</div>
 					{roomCategory.rate_plans.map((ratePlan) => (
 						<React.Fragment key={ratePlan.id}>
 							<div className="h-16 border-b border-r border-slate-400 dark:border-slate-600 px-1 md:px-4 flex flex-col gap-0 justify-center items-start">
-								<p className="text-xs md:text-sm lg:text-base">{ratePlan.name}</p>
+								<p className="text-xs md:text-sm lg:text-base font-medium">
+									{ratePlan.name}
+								</p>
 								<div className="flex items-center gap-1">
-                  <User className="size-4" />
-                  <p className="text-xs md:text-sm lg:text-base">{occupancy}</p>
+									<UserRound className="size-3 md:size-4" />
+									<p className="text-xs md:text-sm lg:text-base font-medium">
+										{occupancy}
+									</p>
 								</div>
 							</div>
-							<div className="h-11 text-xs md:text-sm lg:text-base md:h-10 border-b border-r border-slate-400 dark:border-slate-600 px-1 md:px-4 flex items-center">
+							<div className="h-11 text-xs md:text-sm lg:text-base font-medium md:h-10 border-b border-r border-slate-400 dark:border-slate-600 px-1 md:px-4 flex items-center">
 								Min. length of stay
 							</div>
-							<div className="h-11 text-xs md:text-sm lg:text-base md:h-10 border-b border-r border-slate-400 dark:border-slate-600 px-1 md:px-4 flex items-center">
+							<div className="h-11 text-xs md:text-sm lg:text-base font-medium md:h-10 border-b border-r border-slate-400 dark:border-slate-600 px-1 md:px-4 flex items-center">
 								Min. advance reservation
 							</div>
 						</React.Fragment>
@@ -167,7 +171,7 @@ export default function ScrollableRoomTable({
 					{virtualizer.getVirtualItems().map((virtualItem) => {
 						const date = dates[virtualItem.index];
 						const inventory = getInventoryForDate(date);
-            const isDisabled = inventory?.status === false;
+						const isDisabled = inventory?.status === false;
 
 						return (
 							<div

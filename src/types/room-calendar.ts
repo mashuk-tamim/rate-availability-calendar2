@@ -6,6 +6,7 @@ export interface RoomCalendarResponse {
 
 export interface RoomCalendarData {
 	room_categories: RoomCategory[];
+	nextCursor?: number; // available if a cursor as query param is passed
 }
 
 export interface RoomCategory {

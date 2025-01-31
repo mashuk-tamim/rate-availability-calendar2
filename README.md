@@ -43,25 +43,29 @@ This project implements a high-performance rate availability calendar system des
 
 #### Synchronized Scrolling Implementation
 - **Initial Challenge**:
-  - Real-time synchronization between calendar and room tables caused performance issues
-  - Direct scroll event handling led to janky updates and poor user experience
-  - High frequency of updates impacted browser performance
+  - Real-time synchronization between calendar and room tables needed to be optimized
+  - Required smooth and instant updates without performance impact
+  - Needed to handle high-frequency scroll events efficiently
 
 - **Solution Implemented**:
-  - Introduced debounced scroll event handling
-  - Updates component positions after scroll completion
-  - Maintains smooth scrolling while ensuring consistent updates
-  - Provides better user experience with minimal visual disruption
+  - Implemented optimized scroll event handling
+  - Achieved instant and smooth synchronization between components
+  - Maintains consistent visual updates without performance degradation
+  - Provides seamless user experience with real-time feedback
 
-- **Trade-offs Considered**:
-  - Real-time updates vs. Performance
-  - Immediate feedback vs. Smooth operation
-  - Current implementation favors reliability over immediate updates
+- **Technical Implementation**:
+  - Efficient scroll event handling mechanism
+  - Optimized component position updates
+  - Introduced react compiler to improve performance through better memorization out of the box and avoid unnecessary re-renders.
+  - Used TanStack Virtualization for efficient rendering of large datasets.
+  - Used Intersection Observer for lazy loading of data.
+  - Used useLayoutEffect for smooth animations.
+  - Used useEffect for handling scroll events.
+  - Used useRef for handling scroll position.
+  - Used overscan to handle the extra items to be rendered to achieve instant scroll updates.
 
 #### Future Optimization Opportunities
-- Explore WebWorkers for handling scroll calculations
-- Investigate RAF (RequestAnimationFrame) for smoother animations
-- Consider implementing progressive loading for extended date ranges
+- Optimize for millions of data points
 
 ## Technical Choices
 
@@ -121,11 +125,6 @@ This project implements a high-performance rate availability calendar system des
 - Dark/Light mode support for better user experience
 - Clean and intuitive interface
 
-## Future Improvements
-
-- Make the calendar more responsive and mobile friendly
-- Make the scrolling more synchronized between the calendar and the room table
-- Reduce the delay in the scrollable room table when scrolling
 
 ## Getting Started
 

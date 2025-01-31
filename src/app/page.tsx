@@ -8,7 +8,21 @@ import { DATE_RANGE_COUNT } from "@/constants/date-range";
 
 export const metadata: Metadata = {
 	title: "Room Calendar",
-	description: "View and manage room availability calendar",
+  description: "View and manage room availability calendar",
+  icons: {
+    icon: [
+      {
+        media: "(prefers-color-scheme: light)",
+        url: "/favicon/favicon-light.ico",
+        href: "/favicon/favicon-light.ico",
+      },
+      {
+        media: "(prefers-color-scheme: dark)",
+        url: "/favicon/favicon-dark.ico",
+        href: "/favicon/favicon-dark.ico",
+      },
+    ],
+  },
 	openGraph: {
 		title: "Room Calendar",
 		description: "View and manage room availability calendar",

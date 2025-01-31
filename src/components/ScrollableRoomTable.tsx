@@ -209,8 +209,15 @@ function ScrollableRoomTable({
 													suppressContentEditableWarning={true}
 													contentEditable
 													onBlur={(e) =>
-														handleContentEdit(e, date, ratePlan.id, "rate", roomCategory.id)
+														handleContentEdit(
+															e,
+															date,
+															ratePlan.id,
+															"rate",
+															roomCategory.id
+														)
 													}
+													onMouseEnter={(e) => e.currentTarget.focus()}
 													className={clsx(
 														"h-16 max-w-[134px] border-b border-r border-slate-400 dark:border-slate-600 text-center flex items-center justify-center text-xs md:text-sm lg:text-base",
 														isDisabled && "bg-red-500 text-white"
@@ -222,13 +229,19 @@ function ScrollableRoomTable({
 													suppressContentEditableWarning={true}
 													contentEditable
 													onBlur={(e) =>
-														handleContentEdit(e, date, ratePlan.id, "min_length_of_stay", roomCategory.id)
+														handleContentEdit(
+															e,
+															date,
+															ratePlan.id,
+															"min_length_of_stay",
+															roomCategory.id
+														)
 													}
+													onMouseEnter={(e) => e.currentTarget.focus()}
 													className={clsx(
 														"h-11 text-xs md:text-sm lg:text-base md:h-10 border-b border-r border-slate-400 dark:border-slate-600 text-center flex items-center justify-center",
 														isDisabled && "bg-red-500 text-white"
 													)}
-
 												>
 													{rateInfo?.min_length_of_stay ?? "-"}
 												</div>
@@ -236,13 +249,19 @@ function ScrollableRoomTable({
 													suppressContentEditableWarning={true}
 													contentEditable
 													onBlur={(e) =>
-														handleContentEdit(e, date, ratePlan.id, "reservation_deadline", roomCategory.id)
+														handleContentEdit(
+															e,
+															date,
+															ratePlan.id,
+															"reservation_deadline",
+															roomCategory.id
+														)
 													}
+													onMouseEnter={(e) => e.currentTarget.focus()}
 													className={clsx(
 														"h-11 text-xs md:text-sm lg:text-base md:h-10 border-b border-r border-slate-400 dark:border-slate-600 text-center flex items-center justify-center",
 														isDisabled && "bg-red-500 text-white"
 													)}
-
 												>
 													{rateInfo?.reservation_deadline ?? "-"}
 												</div>

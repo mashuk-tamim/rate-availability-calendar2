@@ -61,13 +61,6 @@ function ScrollableRoomTable({
 	}, [scrollOffset]);
 
 	useEffect(() => {
-		console.log("Room Category Data:", {
-			inventory_calendar: roomCategory.inventory_calendar,
-			rate_plans: roomCategory.rate_plans,
-		});
-	}, [roomCategory]);
-
-	useEffect(() => {
 		if (start_date && end_date) {
 			const startDate = parseISO(start_date);
 			const endDate = parseISO(end_date);
@@ -112,9 +105,6 @@ function ScrollableRoomTable({
 			newValue,
 			roomCategoryId,
 		});
-
-
-		// Here you can add your logic to update the state or send to an API
 	};
 
 	return (

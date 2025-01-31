@@ -46,7 +46,7 @@ export default async function Home({
 	return (
 		<div className="max-w-7xl mx-auto border border-slate-400 dark:border-slate-600 p-4 space-y-4">
 			<div className="border border-slate-400 dark:border-slate-600 p-4 bg-slate-100 dark:bg-slate-900 rounded-sm">
-				<p className="text-2xl font-bold">Pick a date range</p>
+				<p className="text-2xl font-bold text-center md:text-left">Pick a date range</p>
 				<DatePickerWithRange />
 			</div>
 			<div className="py-2">

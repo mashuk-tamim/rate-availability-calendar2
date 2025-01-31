@@ -35,7 +35,6 @@ function ScrollableCalendar({
 	});
 
 
-
 	const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
 		if (!isScrollingRef.current) {
 			isScrollingRef.current = true;

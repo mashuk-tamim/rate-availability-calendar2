@@ -26,19 +26,17 @@ export default function useRoomRateAvailabilityCalendar(params: IParams) {
 				cursor: pageParam.toString(),
 			}).toString();
 
-			console.log('Fetching with cursor:', pageParam);
 			const response = await Fetch<RoomCalendarResponse>({
 				method: "GET",
 				url,
 			});
-			console.log('Response:', response);
 			return response;
 		},
 		getNextPageParam: (lastPage) => {
-			console.log('Next cursor:', lastPage.data.nextCursor);
 			return lastPage.data.nextCursor ?? undefined;
 		},
 		initialPageParam: 0,
+
 		initialData: params.initialData ? {
 			pages: [params.initialData],
 			pageParams: [0],

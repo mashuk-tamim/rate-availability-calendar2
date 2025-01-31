@@ -33,10 +33,11 @@ export default function Navbar() {
 						src={logoSrc}
 						alt="logo"
 						width={100}
-						height={50}
+            height={34}
 					/>
 				</div>
 				<div className="flex items-center gap-2">
+
 					<ModeToggle />
 					<Button variant="outline">LOGIN</Button>
 				</div>

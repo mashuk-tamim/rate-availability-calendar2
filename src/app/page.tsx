@@ -4,6 +4,7 @@ import RoomCalendarContainer from "@/components/RoomCalenderContainer";
 import Fetch from "@/utils/Fetch";
 import { Metadata } from "next";
 import { format, addDays } from "date-fns";
+import { DATE_RANGE_COUNT } from "@/constants/date-range";
 
 export const metadata: Metadata = {
 	title: "Room Calendar",
@@ -27,7 +28,7 @@ export default async function Home({
 }) {
 	const {
 		start_date = format(new Date(), "yyyy-MM-dd"),
-		end_date = format(addDays(new Date(), 90), "yyyy-MM-dd"),
+		end_date = format(addDays(new Date(), DATE_RANGE_COUNT), "yyyy-MM-dd"),
 	} = await searchParams;
 
   const propertyId = 1;

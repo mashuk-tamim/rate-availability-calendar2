@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/popover";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
+import { DATE_RANGE_COUNT } from "@/constants/date-range";
 
 export function DatePickerWithRange({
 	className,
@@ -21,8 +22,9 @@ export function DatePickerWithRange({
 
 	const [date, setDate] = React.useState<DateRange | undefined>({
 		from: new Date(),
-		to: addDays(new Date(),90),
+		to: addDays(new Date(), DATE_RANGE_COUNT),
   });
+
 
   const router = useRouter();
   const searchParams = useSearchParams();

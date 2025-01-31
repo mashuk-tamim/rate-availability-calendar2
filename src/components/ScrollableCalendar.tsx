@@ -1,9 +1,10 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { format, parseISO, eachDayOfInterval } from "date-fns";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { useColumnWidth } from "@/hooks/useColumnWidth";
+
 
 interface RoomCalendarProps {
 	start_date: string;
@@ -12,7 +13,7 @@ interface RoomCalendarProps {
 	scrollOffset?: number;
 }
 
-export default function ScrollableCalendar({
+function ScrollableCalendar({
 	start_date,
 	end_date,
 	onScroll,
@@ -20,7 +21,7 @@ export default function ScrollableCalendar({
 }: RoomCalendarProps) {
 	const [dates, setDates] = useState<Date[]>([]);
 	const parentRef = useRef<HTMLDivElement>(null);
-	const isScrolling = useRef(false);
+	const isScrollingRef = useRef(false);
 	const columnWidth = useColumnWidth();
 
 	// Setup virtualizer
@@ -29,30 +30,32 @@ export default function ScrollableCalendar({
 		getScrollElement: () => parentRef.current,
 		estimateSize: () => columnWidth,
 		horizontal: true,
-		overscan: 0,
+		overscan: dates.length,
+		scrollPaddingEnd: columnWidth * 2, // Prefetch for smooth edge scrolling
 	});
 
-	// Handle scroll from other calendar
-	useEffect(() => {
-		if (
-			scrollOffset !== undefined &&
-			!isScrolling.current &&
-			parentRef.current
-		) {
-			parentRef.current.scrollLeft = scrollOffset;
-		}
-	}, [scrollOffset]);
 
-	// Handle scroll event
+
 	const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
-		if (!isScrolling.current) {
-			isScrolling.current = true;
+		if (!isScrollingRef.current) {
+			isScrollingRef.current = true;
 			onScroll?.(e.currentTarget.scrollLeft);
 			requestAnimationFrame(() => {
-				isScrolling.current = false;
+				isScrollingRef.current = false;
 			});
 		}
 	};
+
+	// In the useLayoutEffect, replace scrollTo with direct assignment:
+	useLayoutEffect(() => {
+		if (
+			scrollOffset !== undefined &&
+			!isScrollingRef.current &&
+			parentRef.current
+		) {
+			parentRef.current.scrollLeft = scrollOffset; // Instant scroll
+		}
+	}, [scrollOffset]);
 
 	useEffect(() => {
 		if (start_date && end_date) {
@@ -102,3 +105,5 @@ const DateCell = ({ date }: { date: Date }) => {
 		</div>
 	);
 };
+
+export default React.memo(ScrollableCalendar);

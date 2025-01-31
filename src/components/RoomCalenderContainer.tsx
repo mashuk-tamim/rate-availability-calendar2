@@ -3,7 +3,6 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useIntersection } from "@mantine/hooks";
 import ScrollableCalendar from "./ScrollableCalendar";
-import { debounce } from "lodash";
 import { RoomCalendarResponse } from "@/types/room-calendar";
 import ScrollableRoomTable from "./ScrollableRoomTable";
 import { formatDate } from "@/utils/helper";
@@ -30,7 +29,6 @@ export default function RoomCalendarContainer({
 
 	// to track if we got empty data in the last fetch
 	const [reachedEnd, setReachedEnd] = useState(false);
-
 	const lastTableRef = useRef<HTMLDivElement>(null);
 
 	// infinite query
@@ -71,21 +69,13 @@ export default function RoomCalendarContainer({
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [entry?.isIntersecting]);
 
-	// Create debounced scroll handler for horizontal scroll sync
-	const handleHorizontalScroll = debounce(
-		(newOffset: number, sourceId: string) => {
-			setScrollOffset({ offset: newOffset, sourceId });
-		},
-		25
-	);
 
-	// Cleanup debounce on unmount
-	useEffect(() => {
-		return () => {
-			handleHorizontalScroll.cancel();
-		};
-		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, []);
+	const handleHorizontalScroll = (newOffset: number, sourceId: string) => {
+		requestAnimationFrame(() => {
+			setScrollOffset({ offset: newOffset, sourceId });
+		});
+	};
+
 
 	return (
 		<div className="space-y-8 font-geist ">

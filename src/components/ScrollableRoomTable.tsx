@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { format, parseISO, eachDayOfInterval } from "date-fns";
 import { useVirtualizer } from "@tanstack/react-virtual";
 import { RoomCategory } from "@/types/room-calendar";
@@ -17,7 +17,7 @@ interface ScrollableRoomTableProps {
 	showScrollbar?: boolean;
 }
 
-export default function ScrollableRoomTable({
+function ScrollableRoomTable({
 	roomCategory,
 	start_date,
 	end_date,
@@ -26,10 +26,9 @@ export default function ScrollableRoomTable({
 	showScrollbar = false,
 }: ScrollableRoomTableProps) {
 	const [dates, setDates] = useState<Date[]>([]);
-  const parentRef = useRef<HTMLDivElement>(null);
-  const isScrolling = useRef(false);
-  const columnWidth = useColumnWidth();
-
+	const parentRef = useRef<HTMLDivElement>(null);
+	const isScrollingRef = useRef(false);
+	const columnWidth = useColumnWidth();
 
 	// Setup virtualizer
 	const virtualizer = useVirtualizer({
@@ -37,28 +36,29 @@ export default function ScrollableRoomTable({
 		getScrollElement: () => parentRef.current,
 		estimateSize: () => columnWidth,
 		horizontal: true,
-		overscan: 0,
+		overscan: dates.length,
+		scrollPaddingEnd: columnWidth * 2, // Prefetch for smooth edge scrolling
 	});
 
-	useEffect(() => {
-		if (
-			scrollOffset !== undefined &&
-			!isScrolling.current &&
-			parentRef.current
-		) {
-			parentRef.current.scrollLeft = scrollOffset;
-		}
-	}, [scrollOffset]);
-
 	const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
-		if (!isScrolling.current) {
-			isScrolling.current = true;
+		if (!isScrollingRef.current) {
+			isScrollingRef.current = true;
 			onScroll?.(e.currentTarget.scrollLeft);
-			setTimeout(() => {
-				isScrolling.current = false;
-			}, 0);
+			requestAnimationFrame(() => {
+				isScrollingRef.current = false;
+			});
 		}
 	};
+
+	useLayoutEffect(() => {
+		if (
+			scrollOffset !== undefined &&
+			!isScrollingRef.current &&
+			parentRef.current
+		) {
+			parentRef.current.scrollLeft = scrollOffset; // Instant scroll
+		}
+	}, [scrollOffset]);
 
 	useEffect(() => {
 		console.log("Room Category Data:", {
@@ -86,7 +86,7 @@ export default function ScrollableRoomTable({
 
 	const getRateForDate = (date: Date, ratePlanId: number) => {
 		const dateStr = format(date, "yyyy-MM-dd");
-    
+
 		const ratePlan = roomCategory.rate_plans.find((rp) => rp.id === ratePlanId);
 		const rateInfo = ratePlan?.calendar.find(
 			(rate) => rate.date.split("T")[0] === dateStr
@@ -230,3 +230,5 @@ export default function ScrollableRoomTable({
 		</div>
 	);
 }
+
+export default ScrollableRoomTable;

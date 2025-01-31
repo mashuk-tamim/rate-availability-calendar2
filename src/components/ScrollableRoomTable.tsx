@@ -96,6 +96,27 @@ function ScrollableRoomTable({
 
 	const occupancy = roomCategory.occupancy;
 
+  const handleContentEdit = (
+    event: React.FormEvent<HTMLDivElement>,
+    date: Date,
+    ratePlanId: number,
+    field: "rate" | "min_length_of_stay" | "reservation_deadline",
+    roomCategoryId: string,
+	) => {
+		const newValue = event.currentTarget.textContent;
+		console.log({
+
+			date: format(date, "yyyy-MM-dd"),
+			ratePlanId,
+			field,
+			newValue,
+			roomCategoryId,
+		});
+
+
+		// Here you can add your logic to update the state or send to an API
+	};
+
 	return (
 		<div className="flex">
 			{/* Fixed left column */}
@@ -195,26 +216,43 @@ function ScrollableRoomTable({
 										return (
 											<React.Fragment key={ratePlan.id}>
 												<div
+													suppressContentEditableWarning={true}
+													contentEditable
+													onBlur={(e) =>
+														handleContentEdit(e, date, ratePlan.id, "rate", roomCategory.id)
+													}
 													className={clsx(
-														"h-16 border-b border-r border-slate-400 dark:border-slate-600 text-center flex items-center justify-center text-xs md:text-sm lg:text-base",
+														"h-16 max-w-[134px] border-b border-r border-slate-400 dark:border-slate-600 text-center flex items-center justify-center text-xs md:text-sm lg:text-base",
 														isDisabled && "bg-red-500 text-white"
 													)}
 												>
 													{rateInfo?.rate ?? "-"}
 												</div>
 												<div
+													suppressContentEditableWarning={true}
+													contentEditable
+													onBlur={(e) =>
+														handleContentEdit(e, date, ratePlan.id, "min_length_of_stay", roomCategory.id)
+													}
 													className={clsx(
 														"h-11 text-xs md:text-sm lg:text-base md:h-10 border-b border-r border-slate-400 dark:border-slate-600 text-center flex items-center justify-center",
 														isDisabled && "bg-red-500 text-white"
 													)}
+
 												>
 													{rateInfo?.min_length_of_stay ?? "-"}
 												</div>
 												<div
+													suppressContentEditableWarning={true}
+													contentEditable
+													onBlur={(e) =>
+														handleContentEdit(e, date, ratePlan.id, "reservation_deadline", roomCategory.id)
+													}
 													className={clsx(
 														"h-11 text-xs md:text-sm lg:text-base md:h-10 border-b border-r border-slate-400 dark:border-slate-600 text-center flex items-center justify-center",
 														isDisabled && "bg-red-500 text-white"
 													)}
+
 												>
 													{rateInfo?.reservation_deadline ?? "-"}
 												</div>
